@@ -1,13 +1,13 @@
-var express = require('express');
-var router = express.Router();
-const ctrlMain = require('../controllers/main')
-const ctrlFood = require('../controllers/foods')
+const express = require('express');
+const router = express.Router();
+const ctrlLocations = require('../controllers/locations');
+const ctrlOthers = require('../controllers/others');
 
-/* GET home page. */
-router.get('/', ctrlMain.index);
+/* Locations pages */
+router.get('/', ctrlLocations.homelist);
+router.get('/location', ctrlLocations.locationInfo);
+router.get('/location/review/new', ctrlLocations.addReview);
 
-// GET Food page
-router.get('/list', ctrlFood.foodlist);
-router.get('/favourite', ctrlFood.myfavouriteFood);
-
+/* Other pages */
+router.get('/about', ctrlOthers.about);
 module.exports = router;
