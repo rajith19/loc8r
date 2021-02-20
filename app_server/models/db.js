@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 let dbURI = 'mongodb://localhost/Loc8r'; //local DB connection
 
-if(process.env.NODE_ENV === 'production'){
- dbURI = 'mongodb+srv://rajith:rajith0627@cluster0.qnjpb.mongodb.net/loc8r?retryWrites=true&w=majority'; //Remote DB connection
+if (process.env.NODE_ENV === 'production') {
+    dbURI = 'mongodb+srv://rajith:rajith0627@cluster0.qnjpb.mongodb.net/loc8r?retryWrites=true&w=majority'; //Remote DB connection
 }
 
 mongoose.connect(dbURI, { useNewUrlParser: true });
