@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const Loc = mongoose.model('Location');
 
 
 const openingTimeSchema = new mongoose.Schema({
