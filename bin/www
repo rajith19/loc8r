@@ -89,5 +89,4 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-
-console.log("server started " + port);
+console.log("Server started, listening on port: " + port);
