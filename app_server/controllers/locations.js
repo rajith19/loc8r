@@ -1,4 +1,14 @@
-const homelist = (req, res) => {
+const request = require('request');
+const apiOptions = {
+  server: 'http://localhost:3000'
+};
+if (process.env.NODE_ENV === 'production') {
+  apiOptions.server = 'https://loc8rrj.herokuapp.com/';
+}
+
+
+const renderHomepage = (req, res, responseBody) => {
+  console.log("req", req, res);
   res.render('locations-list',
     {
       title: 'Loc8r - find a place to work with wifi',
@@ -7,29 +17,29 @@ const homelist = (req, res) => {
         strapLine: 'Find places to work with wifi near you!'
       },
       sidebar: "Looking for wifi and a seat? Loc8r helps you find places to work when out and about. Perhaps with coffee, cake or a pint? Let Loc8r help you find the place you're looking for.",
-      locations: [
-        {
-          name: 'Starcups',
-          address: '125 High Street, Reading, RG6 1PS',
-          rating: 3,
-          facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-          distance: '100m'
-        },
-        {
-          name: 'Cafe Hero',
-          address: '125 High Street, Reading, RG6 1PS',
-          rating: 4,
-          facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-          distance: '200m'
-        },
-        {
-          name: 'Burger Queen',
-          address: '125 High Street, Reading, RG6 1PS',
-          rating: 2,
-          facilities: ['Food', 'Premium wifi'],
-          distance: '250m'
-        }
-      ]
+      locations: responseBody
+    }
+  );
+};
+
+const homelist = (req, res) => {
+  console.log("hello");
+  const path = '/api/locations';
+  const requestOptions = {
+    url: `${apiOptions.server}${path}`,
+    method: 'GET',
+    json: {},
+    qs: {
+      lng: -0.7992599,
+      lat: 51.378091,
+      maxDistance: 20000
+    }
+  };
+  request(
+    requestOptions,
+    (err, response, body) => {
+      console.log(err)
+      renderHomepage(req, res, body);
     }
   );
 };
@@ -38,7 +48,7 @@ const locationInfo = (req, res) => {
   res.render('location-info',
     {
       title: 'Starcups',
-       pageHeader: {
+      pageHeader: {
         title: 'Loc8r',
       },
       sidebar: {
@@ -50,7 +60,7 @@ const locationInfo = (req, res) => {
         address: '125 High Street, Reading, RG6 1PS',
         rating: 3,
         facilities: ['Hot drinks', 'Food', 'Premium wifi'],
-        coords: {lat: 51.455041, lng: -0.9690884},
+        coords: { lat: 51.455041, lng: -0.9690884 },
         openingTimes: [
           {
             days: 'Monday - Friday',
@@ -91,7 +101,7 @@ const locationInfo = (req, res) => {
 const addReview = (req, res) => {
   res.render('location-review-form',
     {
-      title: 'Review Starcups on Loc8r' ,
+      title: 'Review Starcups on Loc8r',
       pageHeader: { title: 'Review Starcups' }
     }
   );
