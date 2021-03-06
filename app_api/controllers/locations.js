@@ -3,8 +3,6 @@ const Loc = mongoose.model('Location');
 
 
 const locationsListByDistance = async (req, res) => {
-    console.log("req", res);
-
     const lng = parseFloat(req.query.lng);
     const lat = parseFloat(req.query.lat);
     const near = {

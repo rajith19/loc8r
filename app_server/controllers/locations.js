@@ -3,7 +3,7 @@ const apiOptions = {
   server: 'http://localhost:3000'
 };
 if (process.env.NODE_ENV === 'production') {
-  apiOptions.server = 'https://loc8rrj.herokuapp.com/';
+  apiOptions.server = 'https://loc8rrj.herokuapp.com';
 }
 
 
@@ -23,7 +23,6 @@ const renderHomepage = (req, res, responseBody) => {
 };
 
 const homelist = (req, res) => {
-  console.log("hello");
   const path = '/api/locations';
   const requestOptions = {
     url: `${apiOptions.server}${path}`,
@@ -38,7 +37,6 @@ const homelist = (req, res) => {
   request(
     requestOptions,
     (err, response, body) => {
-      console.log(err)
       renderHomepage(req, res, body);
     }
   );
