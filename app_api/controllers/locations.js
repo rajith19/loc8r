@@ -35,12 +35,12 @@ const locationsListByDistance = async (req, res) => {
         ]);
         const locations = results.map(result => {
             return {
-                id: result._id,
+                _id: result._id,
                 name: result.name,
                 address: result.address,
                 rating: result.rating,
                 facilities: result.facilities,
-                distance: `${result.distance.calculated.toFixed()}m`
+                distance: `${result.distance.calculated.toFixed()}`
             }
         });
         res
@@ -97,7 +97,6 @@ const locationsCreate = (req, res) => {
 
 
 const locationsReadOne = (req, res) => {
-
     Loc.findById(req.params.locationid).exec((err, location) => {
         if (!location) {
             return res.status(404).json({
