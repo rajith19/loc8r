@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from './home-list/home-list.component';
-import { environment } from "../environments/environment"
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,9 @@ export class Loc8rDataService {
 
   constructor(private http: HttpClient) { }
 
-  private apiBaseUrl = environment.apiUrl;
+  private apiBaseUrl = 'http://localhost:3000/api';
+
+    //  private apiBaseUrl = process.env.APIBASE_URL;
   
   public getLocations(): Promise<Location[]> {
     const lng: number = -0.7992599;
@@ -23,6 +25,7 @@ export class Loc8rDataService {
       .then(response => response as Location[])
       .catch(this.handleError);
   }
+
   private handleError(error: any): Promise<any> {
     console.error('Something has gone wrong', error);
     return Promise.reject(error.message || error);
